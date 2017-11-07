@@ -1,7 +1,8 @@
-import sys
-from rearrange import rearrange
 import random
+import sys
 import time
+
+from rearrange import rearrange
 
 
 def get_words_from_file(words_file, number_of_words_to_get=None):
