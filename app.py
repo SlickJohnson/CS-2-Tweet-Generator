@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import sample
 
 app = Flask(__name__)
@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return sample.get_random_sentence('holmes.txt')
+    return render_template('index.html', sentence=sample.get_random_sentence('holmes.txt'))
 
 
 if __name__ == "__main__":

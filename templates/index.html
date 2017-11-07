@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tweek Generator</title>
+
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class=page>
+    <h1>Random Tweet</h1>
+
+    <div class=tweet>
+        {% if sentence %}
+        <h2>{{ sentence }}</h2>
+        {% else %}
+        <h2>ERROR: No sentence Generated</h2>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
