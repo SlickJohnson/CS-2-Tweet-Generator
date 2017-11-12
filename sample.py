@@ -1,4 +1,4 @@
-import histogram as hist
+from histograms import Dictogram, Listogram
 import random
 import secrets
 
@@ -16,11 +16,9 @@ def get_weighted_sample(histogram):
         weight += freq
 
 
-def get_random_sentence(file_path):
-    with open(file_path, 'r', encoding='utf8') as source_file:
-        source_word_list = [word.lower() for word in source_file.read().rsplit()]
+def get_random_sentence(word_list):
 
-    histogram = hist.get_histogram_dictionary(source_word_list)
+    histogram = Dictogram(word_list)
 
     return " ".join([get_weighted_sample(histogram) for _ in range(random.randint(5, 15))])
 
