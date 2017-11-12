@@ -1,6 +1,9 @@
 1. What are the key features of the application? Are these clearly separated into their own files, classes, and/or modules?
 
-    The key features of the application are to generate a histogram for a list of words. At the moment of answering this question, the files of my project are clearly separated into their own files, and modules, but I have yet to use classes
+    - Generate a histogram for a list of words.
+    - Use a histogram to generate sentences.
+
+     At the moment of answering this question, the files of my project are clearly separated into their own files, and modules, but I have yet to use classes.
 
 1. Are the names of files, modules, functions, and variables appropriate and accurate? Would a new programmer be able to understand the names without too much contextual knowledge?
 
