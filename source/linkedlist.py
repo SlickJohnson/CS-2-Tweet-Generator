@@ -1,7 +1,12 @@
-#!python
+"""LinkedList python implementation."""
 
 
 class Node(object):
+    """Node object containing 2 pointers.
+
+    data(Any): Store any type of item
+    next(Node): Points to the next node in the linked list
+    """
 
     def __init__(self, data):
         """Initialize this node with the given data."""
@@ -14,6 +19,11 @@ class Node(object):
 
 
 class LinkedList(object):
+    """LinkedList object containing a list of nodes.
+
+    head(Node): First node in linked list.
+    tail(Node): Last node in inked list.
+    """
 
     def __init__(self, items=None):
         """Initialize this linked list and append the given items, if any."""
