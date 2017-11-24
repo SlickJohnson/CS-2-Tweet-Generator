@@ -45,8 +45,10 @@ class LinkedList(object):
 
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
+
         Best and worst case running time: O(n) for n items in the list (length)
-        because we always need to loop through all n nodes to get each item."""
+        because we always need to loop through all n nodes to get each item.
+        """
         items = []  # O(1) time to create empty list
         # Start at head node
         node = self.head  # O(1) time to assign new variable
@@ -63,9 +65,18 @@ class LinkedList(object):
         return self.head is None
 
     def length(self):
-        """Return the length of this linked list by traversing its nodes."""
-        # TODO: Running time: O(???) Why and under what conditions?
-        # TODO: Loop through all nodes and count one for each
+        """Return the length of this linked list by traversing its nodes.
+
+        Best and worst case running time: O(n) for n items in the list (length)
+        because we always need to loop through all n nodes get the length.
+        """
+        if self.head is None:
+            return 0
+
+        if self.head == self.tail:
+            return 1
+
+        return len(self.items())
 
     def append(self, item):
         """Insert the given item at the tail of this linked list."""
@@ -94,17 +105,18 @@ class LinkedList(object):
             self.head.next = old_node
 
     def find(self, quality):
-        """Return an item from this linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        """Return an item from ll satisfying the given quality."""
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
+        # TODO: Best case running time: O(???) Why and under what conditions?
+        # TODO: Worst case running time: O(???) Why and under what conditions?
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find one whose data matches given item
+
+        Best case running time: O(1) if item is first in ll
+        """
+        # TODO: Worst case running time: O(n-1) if item is second to last
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
