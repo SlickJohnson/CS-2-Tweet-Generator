@@ -69,7 +69,6 @@ class LinkedList(object):
 
     def append(self, item):
         """Insert the given item at the tail of this linked list."""
-        # TODO: Running time: O(???) Why and under what conditions?
         new_node = Node(item)
 
         if self.is_empty():
@@ -80,12 +79,19 @@ class LinkedList(object):
         self.tail = new_node
 
     def prepend(self, item):
-        """Insert the given item at the head of this linked list.
-        # TODO: Running time: O(???) Why and under what conditions?"""
+        """Insert the given item at the head of this linked list."""
         new_node = Node(item)
-        new_node.next = self.head
-        self.tail = self.head
-        self.head = new_node
+
+        if self.is_empty():
+            self.head = new_node
+            self.tail = self.head
+        elif self.tail == self.head:  # 1 item in ll
+            self.head = new_node
+            self.head.next = self.tail
+        else:
+            old_node = self.head
+            self.head = new_node
+            self.head.next = old_node
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -113,6 +119,16 @@ def test_linked_list():
     for item in ['A', 'B', 'C']:
         print('append({!r})'.format(item))
         ll.append(item)
+        print('list: {}'.format(ll))
+
+    print('head: {}'.format(ll.head))
+    print('tail: {}'.format(ll.tail))
+    print('length: {}'.format(ll.length()))
+
+    print('\nTesting prepending:')
+    for item in ['A', 'B', 'C']:
+        print('prepend({!r})'.format(item))
+        ll.prepend(item)
         print('list: {}'.format(ll))
 
     print('head: {}'.format(ll.head))
