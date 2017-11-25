@@ -138,10 +138,8 @@ class LinkedList(object):
             A the data of a node that matches the quality provided.
 
         """
-        # TODO: Best case running time: O(???) Why and under what conditions?
-        # TODO: Worst case running time: O(???) Why and under what conditions?
         if self.is_empty():  # Ll is empty, so return nothing
-            return None
+            return ValueError("Linkedlist is empty")
 
         current_node = self.head
         while current_node:  # Loop until None
@@ -153,14 +151,36 @@ class LinkedList(object):
         return None  # Return None if quality was not satisfied
 
     def delete(self, item):
-        """Delete the given item from this linked list, or raise ValueError.
+        """Delete the given item from this ll, or raise ValueError.
 
-        Best case running time: O(1) if item is first in ll
+        Result:
+            The first matching node is forgotten by taking the previous node's
+            next variable and setting it to the matching node's next variable.
+            The result is a ll that has no access to the 'deleted' node.
+
+        Performance:
+            O(1) if item is first in ll
+            O(n) if item is last in ll
+
         """
-        # TODO: Worst case running time: O(n-1) if item is second to last
-        # TODO: Update previous node to skip around node with matching data
-        # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
+        if self.is_empty():
+            return ValueError("Linkedlist is empty")
+
+        if self.head.data == item:
+            self.head = self.head.next
+            return
+
+        current_node = self.head
+        prev_node = current_node
+        while current_node:  # Loop until None
+            if current_node.data == item:
+                prev_node.next = current_node.next  # Forget the node
+                return
+
+            prev_node = current_node
+            current_node = current_node.next
+
+        return ValueError("Item not found: {}".format(item))
 
 
 def test_linked_list():
@@ -189,7 +209,7 @@ def test_linked_list():
     print('length: {}'.format(ll.length()))
 
     # Enable this after implementing delete method
-    delete_implemented = False
+    delete_implemented = True
     if delete_implemented:
         print('\nTesting delete:')
         for item in ['B', 'C', 'A']:
