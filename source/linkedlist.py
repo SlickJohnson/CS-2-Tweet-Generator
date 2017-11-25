@@ -171,9 +171,11 @@ class LinkedList(object):
         if self.head.data == item:
             self.head = self.head.next
             self.size -= 1
+
             if self.size == 0:
                 self.head = None
                 self.tail = None
+
             return
 
         current_node = self.head
@@ -181,11 +183,6 @@ class LinkedList(object):
         while current_node:  # Loop until None
             if current_node.data == item:
                 self.size -= 1
-
-                if self.size == 0:
-                    self.head = None
-                    self.tail = None
-                    return
 
                 if self.tail == current_node:
                     self.tail = prev_node
