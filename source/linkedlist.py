@@ -23,14 +23,18 @@ class Node(object):
 class LinkedList(object):
     """LinkedList object containing a list of nodes.
 
-    head(Node): First node in linked list.
-    tail(Node): Last node in inked list.
+    Attributes:
+        head: The first node in the list
+        tail: The last node in the list
+        size: An int that tracks the length of the list
+
     """
 
     def __init__(self, items=None):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
         self.tail = None  # Last node
+        self.size = 0
         # Append given items
         if items is not None:
             for item in items:
@@ -69,16 +73,11 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
 
-        Best and worst case running time: O(n) because we always need to loop
-        through all n nodes get the length.
+        Performance:
+            O(1) because length is a stored variable that increments/decrements
+                based on the ll functions used.
         """
-        if self.head is None:
-            return 0
-
-        if self.head == self.tail:
-            return 1
-
-        return len(self.items())
+        return self.size
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -100,6 +99,7 @@ class LinkedList(object):
             self.tail.next = new_node
 
         self.tail = new_node
+        self.size += 1
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
@@ -126,6 +126,8 @@ class LinkedList(object):
             old_node = self.head  # Keep track of old head to prevent overwrite
             self.head = new_node
             self.head.next = old_node
+
+        self.size += 1
 
     def find(self, quality):
         """Return an item from ll satisfying the given quality.
@@ -164,23 +166,38 @@ class LinkedList(object):
 
         """
         if self.is_empty():
-            return ValueError("Linkedlist is empty")
+            raise ValueError("Item not found: {}. Empty list.".format(item))
 
         if self.head.data == item:
             self.head = self.head.next
+            self.size -= 1
+            if self.size == 0:
+                self.head = None
+                self.tail = None
             return
 
         current_node = self.head
         prev_node = current_node
         while current_node:  # Loop until None
             if current_node.data == item:
+                self.size -= 1
+
+                if self.size == 0:
+                    self.head = None
+                    self.tail = None
+                    return
+
+                if self.tail == current_node:
+                    self.tail = prev_node
+                    return
+
                 prev_node.next = current_node.next  # Forget the node
                 return
 
             prev_node = current_node
             current_node = current_node.next
 
-        return ValueError("Item not found: {}".format(item))
+        raise ValueError("Item not found: {}".format(item))
 
 
 def test_linked_list():
@@ -216,6 +233,10 @@ def test_linked_list():
             print('delete({!r})'.format(item))
             ll.delete(item)
             print('list: {}'.format(ll))
+
+        print('delete({!r})'.format("x"))
+        ll.delete("x")
+        print('list: {}'.format(ll))
 
         print('head: {}'.format(ll.head))
         print('tail: {}'.format(ll.tail))
