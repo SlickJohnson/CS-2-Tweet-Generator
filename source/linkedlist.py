@@ -2,10 +2,12 @@
 
 
 class Node(object):
-    """Node object containing 2 pointers.
+    """Node object for LinkedLists.
 
-    data(Any): Store any type of item
-    next(Node): Points to the next node in the linked list
+    Attributes:
+        data: A variable containing any datatype
+        next: A variable that poitns to the next node in a ll
+
     """
 
     def __init__(self, data):
@@ -67,8 +69,8 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
 
-        Best and worst case running time: O(n) for n items in the list (length)
-        because we always need to loop through all n nodes get the length.
+        Best and worst case running time: O(n) because we always need to loop
+        through all n nodes get the length.
         """
         if self.head is None:
             return 0
@@ -79,7 +81,17 @@ class LinkedList(object):
         return len(self.items())
 
     def append(self, item):
-        """Insert the given item at the tail of this linked list."""
+        """Insert the given item at the tail of this linked list.
+
+        Args:
+            item: A variable that is of any datatype
+
+        Result:
+            A new node is created to hold item and is connected to the tail
+            node. If the ll is empty, the new node is set to the head of the ll
+            in order to start a new ll.
+
+        """
         new_node = Node(item)
 
         if self.is_empty():
@@ -90,22 +102,42 @@ class LinkedList(object):
         self.tail = new_node
 
     def prepend(self, item):
-        """Insert the given item at the head of this linked list."""
+        """Insert the given item at the head of this linked list.
+
+        Args:
+            item: A variable that is of any datatype
+
+        Result:
+            A new node is created to hold item and is connected to the head
+            node. If the ll is empty, the head and tail become the new node.
+            If the ll has only one node (head == tail), the head becomes
+            the newly created node and it's connected to the tail node.
+
+        """
         new_node = Node(item)
 
         if self.is_empty():
             self.head = new_node
             self.tail = self.head
-        elif self.tail == self.head:  # 1 item in ll
+        elif self.tail == self.head:
             self.head = new_node
             self.head.next = self.tail
         else:
-            old_node = self.head
+            old_node = self.head  # Keep track of old head to prevent overwrite
             self.head = new_node
             self.head.next = old_node
 
     def find(self, quality):
-        """Return an item from ll satisfying the given quality."""
+        """Return an item from ll satisfying the given quality.
+
+        Args:
+            quality: A variable that determines the quality of an item
+                returning True if the quality matches and False otherwise.
+
+        Returns:
+            A the data of a node that matches the quality provided.
+
+        """
         # TODO: Best case running time: O(???) Why and under what conditions?
         # TODO: Worst case running time: O(???) Why and under what conditions?
         if self.is_empty():  # Ll is empty, so return nothing
@@ -113,12 +145,12 @@ class LinkedList(object):
 
         current_node = self.head
         while current_node:  # Loop until None
-            if quality(current_node.data):  # If quality(item) is true
+            if quality(current_node.data):  # If quality(item) is true,
                 return current_node.data  # Return item
 
             current_node = current_node.next
 
-        return None
+        return None  # Return None if quality was not satisfied
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
