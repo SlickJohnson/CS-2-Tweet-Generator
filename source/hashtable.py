@@ -1,9 +1,16 @@
 #!python
+"""Python implementatin of HashTable."""
 
 from linkedlist import LinkedList
 
 
 class HashTable(object):
+    """HashTable object that holds data that can be quickly retrieved.
+
+    Attributes:
+        buckets: A list of LinkedLists that will hold the data
+
+    """
 
     def __init__(self, init_size=8):
         """Initialize this hash table with the given initial size."""
@@ -89,6 +96,7 @@ class HashTable(object):
 
 
 def test_hash_table():
+    """Test the functionality of the HashTable implementation."""
     ht = HashTable()
     print('hash table: {}'.format(ht))
 
