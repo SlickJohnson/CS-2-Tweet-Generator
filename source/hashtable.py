@@ -79,9 +79,17 @@ class HashTable(object):
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, update value associated with given key
-        # TODO: Otherwise, insert given key-value entry into bucket
+        index = self._bucket_index(key)
+        bucket = self.buckets[index]
+        new_item = (key, value)
+
+        try:
+            item = (key, self.get(key))
+        except KeyError:
+            bucket.append(new_item)
+            return
+
+        bucket.replace(item, new_item)
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
@@ -100,6 +108,12 @@ def test_hash_table():
 
     print('\nTesting set:')
     for key, value in [('I', 1), ('V', 5), ('X', 10)]:
+        print('set({!r}, {!r})'.format(key, value))
+        ht.set(key, value)
+        print('hash table: {}'.format(ht))
+
+    print('\nTesting set twice(update):')
+    for key, value in [('I', 2), ('V', 10), ('X', 20)]:
         print('set({!r}, {!r})'.format(key, value))
         ht.set(key, value)
         print('hash table: {}'.format(ht))
