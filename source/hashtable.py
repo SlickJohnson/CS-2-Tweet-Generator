@@ -35,6 +35,10 @@ class HashTable(object):
         """Return the value for the given key."""
         return self.set(key, value)
 
+    def __iter__(self):
+        """Return iter of all ht buckets list."""
+        return iter(self.buckets)
+
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
         # Calculate the given key's hash code and transform into bucket index
@@ -187,6 +191,10 @@ def test_hash_table():
 
         print('contains(X): {}'.format(ht.contains('X')))
         print('length: {}'.format(ht.length()))
+
+    print('\nTesting iteration:')
+    for item in ht:
+        print(item)
 
     print('\nTesting subscritping:')
     for key in ['I', 'V', 'X']:
