@@ -49,6 +49,18 @@ class LinkedList(object):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
 
+    def __iter__(self):
+        """Return an iter of a list of all data in ll."""
+        return iter(self.items())
+        # nodes = []
+        # node = self.head
+        #
+        # while node is not None:
+        #     nodes.append(node)
+        #     node = node.next
+        #
+        # return iter(nodes)
+
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
 
@@ -261,6 +273,10 @@ def test_linked_list():
     print('head: {}'.format(ll.head))
     print('tail: {}'.format(ll.tail))
     print('length: {}'.format(ll.length()))
+
+    print('\nTesting iteration:')
+    for node in ll:
+        print(node)
 
     # Enable this after implementing delete method
     delete_implemented = True
