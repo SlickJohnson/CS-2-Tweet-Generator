@@ -34,7 +34,11 @@ class HashTable(object):
 
     def keys(self):
         """Return a list of all keys in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best and worse case O(n^2), because it has to loop through the
+                whole buckets list and the buckets.items() list
+        """
         # Collect all keys in each bucket
         all_keys = []
         for bucket in self.buckets:
@@ -44,7 +48,11 @@ class HashTable(object):
 
     def values(self):
         """Return a list of all values in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best and worse case O(n^2), because it has to loop through all the
+                buckets of the HashTable and all the items of each bucket
+        """
         all_values = []
         for bucket in self.buckets:
             for _, value in bucket.items():
@@ -52,8 +60,12 @@ class HashTable(object):
         return all_values
 
     def items(self):
-        """Return a list of all items (key-value pairs) in this hash table.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        """Return a list of all key-value pairs in this hash table.
+
+        Performance:
+            Best and worse case O(n), because it has to loop through all the
+                buckets in the HashTable
+        """
         # Collect all pairs of key-value entries in each bucket
         all_items = []
         for bucket in self.buckets:
@@ -63,17 +75,30 @@ class HashTable(object):
 
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best and worse case O(1) because size is a saved variable that's
+                instantly retrieved
+        """
         return self.size
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best and worse case O(n^2), because it has to loop through the
+                whole buckets list and the buckets.items() (to get keys)
+                before it can check if the key is within the HashTable
+        """
         return key in self.keys()
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best O(1), if key is in the first position of the first bucket
+            Worst O(n^2), if key is at the very end of the HashTable
+        """
         for bucket in self.buckets:
             for bucket_key, bucket_value in bucket.items():
                 if bucket_key == key:
@@ -83,7 +108,11 @@ class HashTable(object):
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best O(1), if it's an unique key, or if the HashTable is empty
+            Worst O(n), if key is at the very end of the bucket (if replacing)
+        """
         index = self._bucket_index(key)
         bucket = self.buckets[index]
         new_item = (key, value)
@@ -99,7 +128,12 @@ class HashTable(object):
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
-        TODO: Running time: O(???) Why and under what conditions?"""
+
+        Performance:
+            Best O(1), if the key is the first in the HashTable
+            Worst O(n), if key is at the very end of the bucket, or if the key
+                is not found.
+        """
         index = self._bucket_index(key)
         bucket = self.buckets[index]
 
