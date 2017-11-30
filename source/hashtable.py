@@ -59,10 +59,12 @@ class HashTable(object):
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         TODO: Running time: O(???) Why and under what conditions?"""
+        return len(self.items())
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         TODO: Running time: O(???) Why and under what conditions?"""
+        return key in self.keys()
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
