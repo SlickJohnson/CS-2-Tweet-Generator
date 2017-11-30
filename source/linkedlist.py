@@ -152,8 +152,48 @@ class LinkedList(object):
 
         return None  # Return None if quality was not satisfied
 
+    def replace(self, item, new_item):
+        """Replace the given item in the ll with the given new_item.
+
+        Args:
+            item: The variable to be replaced
+            new_item: The variable to replace item with
+
+        Result:
+            The first node with the matching item as data will have it's data
+            replaced by new_item.
+
+        Performance:
+            O(1) if item is first in ll
+            O(n) if item is last in ll
+
+        """
+        if self.is_empty():
+            raise ValueError("Empty list.")
+
+        if self.head.data == item:
+            self.head.data = new_item
+            return
+
+        if self.tail.data == item:
+            self.tail.data = new_item
+            return
+
+        current_node = self.head
+        while current_node:  # Loop until None
+            if current_node.data == item:
+                current_node.data = new_item
+                return
+
+            current_node = current_node.next
+
+        raise ValueError("Item not found: {}".format(item))
+
     def delete(self, item):
         """Delete the given item from this ll, or raise ValueError.
+
+        Args:
+            item: The object to be deleted
 
         Result:
             The first matching node is forgotten by taking the previous node's
