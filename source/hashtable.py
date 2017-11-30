@@ -27,6 +27,14 @@ class HashTable(object):
         """Return a string representation of this hash table."""
         return 'HashTable({!r})'.format(self.items())
 
+    def __getitem__(self, key):
+        """Return the value for the given key."""
+        return self.get(key)
+
+    def __setitem__(self, key, value):
+        """Return the value for the given key."""
+        return self.set(key, value)
+
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
         # Calculate the given key's hash code and transform into bucket index
@@ -179,6 +187,13 @@ def test_hash_table():
 
         print('contains(X): {}'.format(ht.contains('X')))
         print('length: {}'.format(ht.length()))
+
+    print('\nTesting subscritping:')
+    for key in ['I', 'V', 'X']:
+        print('ht[{!r}]: {!r}'.format(key, ht[key]))
+        print('Test set item...')
+        ht[key] = '{} {} {}'.format(key, key, key)
+        print('ht[{!r}] is now {!r}'.format(key, ht[key]))
 
 
 if __name__ == '__main__':
