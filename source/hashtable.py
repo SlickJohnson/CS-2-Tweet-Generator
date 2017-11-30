@@ -69,6 +69,12 @@ class HashTable(object):
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
+        for bucket in self.buckets:
+            for bucket_key, bucket_value in bucket.items():
+                if bucket_key == key:
+                    return bucket_value
+
+        raise KeyError('The key "{}" was not found'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
