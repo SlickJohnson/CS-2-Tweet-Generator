@@ -1,20 +1,34 @@
-"""Functions related to markov chains."""
-from histograms import Dictogram
+"""Classes of different order Markov Chains."""
 import random
+from histograms import Dictogram
 
 
-def make_markov_chain(data):
-    """Return a markov chain."""
-    markov_model = dict()
+class FirstOrderMarkovChain(dict):
+    """Implementation of a first order markov chain
 
-    for i in range(0, len(data) - 1):
-        if data[i] in markov_model:
-            markov_model[data[i]].update([data[i + 1]])
-        else:
-            markov_model[data[i]] = Dictogram([data[i + 1]])
+    Attributes:
+    """
 
-    return markov_model
+    def __init__(self, iterable):
+        """Initialize this as a Python dictionary."""
+        super(FirstOrderMarkovChain, self).__init__()
 
+        if iterable:
+            self.update(iterable)
+
+    def update(self, iterable):
+        """Update the data within the model.
+
+        Args:
+            iterable: Any iterable type (preferably a word list)
+        """
+        len_of_iterable = len(iterable)  # O(1)
+
+        for i in range(0, len_of_iterable - 1):  # O(n) n = length of iterable
+            if iterable[i] not in self:
+                self[iterable[i]] = Dictogram()
+
+            self[iterable[i]].update([iterable[i + 1]])  # O(1) updating dict
 
 def generate_sentence(length, model):
     """Return a sentence generated using a markov_chain."""
@@ -30,7 +44,6 @@ def generate_sentence(length, model):
     sentence[0] = sentence[0].capitalize()
 
     return ' '.join(sentence) + '.'
-    return sentence
 
 
 def test_markov_chain(word_list):
@@ -38,15 +51,13 @@ def test_markov_chain(word_list):
     histogram = Dictogram(word_list)
     print(histogram)
 
-    model = make_markov_chain(word_list)
-    print(model)
+    markov_chain = FirstOrderMarkovChain(word_list)
+    print(markov_chain)
 
-    generated_sentence = generate_sentence(10, model)
+    generated_sentence = generate_sentence(10, markov_chain)
     print(generated_sentence)
 
 
 if __name__ == "__main__":
-    sentence = 'one fish two fish red fish blue fish'
-    word_list = sentence.split()
-
-    test_markov_chain(word_list)
+    SENTENCE = 'one fish two fish red fish blue fish'
+    test_markov_chain(SENTENCE.split())
