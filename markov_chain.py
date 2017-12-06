@@ -9,8 +9,8 @@ class FirstOrderMarkovChain(dict):
     Attributes:
     """
 
-    def __init__(self, iterable):
-        """Initialize this as a Python dictionary."""
+    def __init__(self, iterable=None):
+        """Initialize this as a Python dictionary and update if iterable provided."""
         super(FirstOrderMarkovChain, self).__init__()
 
         if iterable:
@@ -35,7 +35,7 @@ def generate_sentence(length, model):
     current_word = random.choice(list(model))
     sentence = [current_word]
 
-    for i in range(0, length):
+    for _ in range(0, length):
         current_dictogram = model[current_word]
         random_weighted_word = current_dictogram.get_weighted_random_word()
         current_word = random_weighted_word
